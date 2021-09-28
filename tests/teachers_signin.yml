@@ -1,0 +1,27 @@
+config:
+    target: "https://dev.myclassroom.com.bd"
+    phases:
+      - duration: 30
+        arrivalCount: 5
+        maxVusers: 100
+    payload:
+      path: "../resources/teachers_cred.csv"
+      
+      fields:
+        - "Email"
+        - "Password"
+      order: sequence
+      skipHeader: true
+scenarios:
+    - name: "Teachers Signin"
+      flow:
+        - post:
+            url: "/login"
+            # Define parameters as {{{xxx}} when posting
+            json:                
+                  Email: "{{Email}}"
+                  Password: "{{Password}}"
+            expect:
+               - statusCode: 201
+               - duration: 2s
+                
